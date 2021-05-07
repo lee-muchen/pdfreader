@@ -38,7 +38,10 @@ public class PDFtoTXTActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pdf_list);
-        init();
+//        init();
+        listView = (ListView) findViewById(R.id.pdf_item_list);
+        imageView = (ImageView) findViewById(R.id.pdf_item_seq);
+        textView = (TextView) findViewById(R.id.pdf_item_name);
         list = new ArrayList<String>();
         File path = Environment.getRootDirectory();
         textView.setText(path.toString());
@@ -110,11 +113,11 @@ public class PDFtoTXTActivity extends Activity {
 //        return false;
 //    }
 
-    private void init() {
-        listView = (ListView) findViewById(R.id.pdf_item_list);
-        imageView = (ImageView) findViewById(R.id.pdf_item_seq);
-        textView = (TextView) findViewById(R.id.pdf_item_name);
-    }
+//    private void init() {
+//        listView = (ListView) findViewById(R.id.pdf_item_list);
+//        imageView = (ImageView) findViewById(R.id.pdf_item_seq);
+//        textView = (TextView) findViewById(R.id.pdf_item_name);
+//    }
  //遍历文件夹
     public void getAllFile(File dir) {
         File[] file = dir.listFiles();
