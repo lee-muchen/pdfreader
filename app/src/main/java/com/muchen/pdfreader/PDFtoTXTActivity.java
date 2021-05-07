@@ -37,7 +37,7 @@ public class PDFtoTXTActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.pdf_list);
         init();
         list = new ArrayList<String>();
         File path = Environment.getRootDirectory();
@@ -57,23 +57,23 @@ public class PDFtoTXTActivity extends Activity {
                 listView.setAdapter(adapter);
                 }
         });
-        imageView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (textView.getText().equals(Environment.getRootDirectory().toString())) {
-                    Toast.makeText(PDFtoTXTActivity.this, "已经是根目录",Toast.LENGTH_LONG).show();
-            } else {
-                    imageView.setClickable(true);
-                    String str = textView.getText().toString();
-                    File file = new File(str);
-                    File fileParentPath = file.getParentFile();
-                    textView.setText(fileParentPath.toString());
-                    getAllFile(fileParentPath);
-                    adapter.setList(list);
-                    listView.setAdapter(adapter);
-                }
-            }
-        });
+//        imageView.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (textView.getText().equals(Environment.getRootDirectory().toString())) {
+//                    Toast.makeText(PDFtoTXTActivity.this, "已经是根目录",Toast.LENGTH_LONG).show();
+//            } else {
+//                    imageView.setClickable(true);
+//                    String str = textView.getText().toString();
+//                    File file = new File(str);
+//                    File fileParentPath = file.getParentFile();
+//                    textView.setText(fileParentPath.toString());
+//                    getAllFile(fileParentPath);
+//                    adapter.setList(list);
+//                    listView.setAdapter(adapter);
+//                }
+//            }
+//        });
     }
  //系统返回键添加监听事件
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {
