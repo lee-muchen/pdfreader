@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"  tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/txt_read"
+        android:layout_width="match_parent"
+        android:layout_marginTop="150dp"
+        android:layout_height="50dp"
+        android:text="txtread"></Button>
+    <Button
+        android:id="@+id/pdf_file"
+        android:layout_width="match_parent"
+        android:layout_marginTop="300dp"
+        android:layout_height="50dp"
+        android:text="pdflist"></Button>
+
+
+</RelativeLayout>
