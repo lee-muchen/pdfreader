@@ -54,7 +54,7 @@ public class MyAdapter extends BaseAdapter{
         File file = new File(path);
         if(file.isDirectory()){
             vh.imageView.setImageResource(R.drawable.folder);
-            vh.tv_path.setText(path);
+            vh.tv_path.setText(file.toString());
         }else {
             vh.imageView.setImageResource(R.drawable.file);
             vh.tv_path.setText(path);

@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -27,7 +28,9 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PDFtoTXTActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class PDFtoTXTActivity extends AppCompatActivity {
     private ListView listView;
     private ImageButton imageButton;
     private ImageView imageView;
@@ -44,22 +47,24 @@ public class PDFtoTXTActivity extends Activity {
         textView = (TextView) findViewById(R.id.pdf_item_name);
         list = new ArrayList<String>();
         File path = Environment.getRootDirectory();
-        textView.setText(path.toString());
+        Log.e("cwj", "手机内存根目录路径  = " + path);
+
         getAllFile(path);
         adapter = new MyAdapter(PDFtoTXTActivity.this, list);
+//        textView.setText(path.toString());
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                int position, long id) {
-                String path = list.get(position);
-                textView.setText(path);
-                File file = new File(path);
-                getAllFile(file);
-                adapter.setList(list);
-                listView.setAdapter(adapter);
-                }
-        });
+//        listView.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                int position, long id) {
+//                String path = list.get(position);
+//                textView.setText(path);
+//                File file = new File(path);
+//                getAllFile(file);
+//                adapter.setList(list);
+//                listView.setAdapter(adapter);
+//                }
+//        });
 //        imageView.setOnClickListener(new OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
