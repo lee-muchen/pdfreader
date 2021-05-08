@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+//适配器
 public class MyAdapter extends BaseAdapter{
     private Context context;
     private List<String> list;
@@ -52,12 +52,12 @@ public class MyAdapter extends BaseAdapter{
         }
         String path = list.get(position);
         File file = new File(path);
-        if(file.isDirectory()){
+        if(file.isDirectory()){//文件夹
             vh.imageView.setImageResource(R.drawable.folder);
-            vh.tv_path.setText(file.toString());
+            vh.tv_path.setText(file.getName());
         }else {
             vh.imageView.setImageResource(R.drawable.file);
-            vh.tv_path.setText(path);
+            vh.tv_path.setText(file.getName());
         }
         return convertView;
     }

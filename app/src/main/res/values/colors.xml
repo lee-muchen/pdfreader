@@ -2,5 +2,7 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
+    <color name="bg__white">#fff</color><!--背景颜色白色-->
+    <color name="bg__light_graye">#DBD0D0</color><!--背景颜色浅灰色-->
     <color name="colorAccent">#D81B60</color>
 </resources>
