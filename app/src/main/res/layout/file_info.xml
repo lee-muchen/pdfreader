@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="文件内容"
+        android:textColor="#000"
+        android:textSize="60px"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/bg__white"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/view" />
+    <TextView
+        android:layout_width="600px"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/message"
+        android:textColor="#000"
+        android:textSize="50px"
+        android:maxLines="16"
+        android:scrollbars="vertical"
+        android:singleLine="false"
+        android:layout_below="@+id/view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp" />
+</RelativeLayout>

@@ -27,13 +27,14 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.muchen.pdfreader.utils.GetFilesUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PDFtoTXTActivity extends AppCompatActivity {
     private ListView listView;
     private ImageButton imageButton;
-    private ImageView imageView;
+//    private ImageView imageView;
     private TextView textView;
     private TextView pdfView;
     List<String> list;
@@ -44,7 +45,7 @@ public class PDFtoTXTActivity extends AppCompatActivity {
         setContentView(R.layout.pdf_list);
 //        init();
         listView = (ListView) findViewById(R.id.pdf_item_list);
-        imageView = (ImageView) findViewById(R.id.pdf_item_seq);//文件图标
+//        imageView = (ImageView) findViewById(R.id.pdf_item_seq);//文件图标
         textView = (TextView) findViewById(R.id.pdf_item_name);//文件名
         pdfView=(TextView) findViewById(R.id.pdf_path);//路径
         imageButton=(ImageButton) findViewById(R.id.pdf_turn);//返回上一级按钮
@@ -63,9 +64,13 @@ public class PDFtoTXTActivity extends AppCompatActivity {
                 String path = list.get(position);
                 pdfView.setText(path);
                 File file = new File(path);
-                getAllFile(file);
-                adapter.setList(list);
-                listView.setAdapter(adapter);
+                if(file.isDirectory()){//文件夹
+                    getAllFile(file);
+                    adapter.setList(list);
+                    listView.setAdapter(adapter);
+                }else {
+                    //读取pdf文件
+                }
                 }
         });
         //返回上一级点击事件
@@ -90,7 +95,7 @@ public class PDFtoTXTActivity extends AppCompatActivity {
  //系统返回键添加监听事件
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (textView.getText().equals(Environment.getRootDirectory().toString())) {
+            if (pdfView.getText().equals(Environment.getRootDirectory().toString())) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PDFtoTXTActivity.this);
                 builder.setMessage("确认退出吗?");
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -112,7 +117,7 @@ public class PDFtoTXTActivity extends AppCompatActivity {
                 String str = textView.getText().toString();
                 File file = new File(str);
                 File fileParentPath = file.getParentFile();
-                textView.setText(fileParentPath.toString());
+                pdfView.setText(fileParentPath.toString());
                 getAllFile(fileParentPath);
                 adapter.setList(list);
                 listView.setAdapter(adapter);
