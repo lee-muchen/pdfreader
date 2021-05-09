@@ -1,33 +1,30 @@
 package com.muchen.pdfreader;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
+import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
+import com.itextpdf.text.pdf.parser.TextExtractionStrategy;
 import com.muchen.pdfreader.adapter.MyAdapter;
 
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.muchen.pdfreader.utils.GetFilesUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -50,7 +47,7 @@ public class PDFtoTXTActivity extends AppCompatActivity {
         pdfView=(TextView) findViewById(R.id.pdf_path);//路径
         imageButton=(ImageButton) findViewById(R.id.pdf_turn);//返回上一级按钮
         list = new ArrayList<String>();
-        File path = Environment.getRootDirectory();
+        File path =new File(Environment.getExternalStorageState()) ;
 //        Log.e("cwj", "手机内存根目录路径  = " + path);
         pdfView.setText(path.toString());
         getAllFile(path);
@@ -70,6 +67,10 @@ public class PDFtoTXTActivity extends AppCompatActivity {
                     listView.setAdapter(adapter);
                 }else {
                     //读取pdf文件
+                    Intent inte = new Intent(PDFtoTXTActivity.this,FileInfoActivity.class);
+                    inte.putExtra("info",readPdfToTxt(file.getAbsolutePath()));
+                    inte.putExtra("title",file.getName());
+                    startActivity(inte);
                 }
                 }
         });
@@ -77,7 +78,8 @@ public class PDFtoTXTActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pdfView.getText().equals(Environment.getRootDirectory().toString())) {
+                //getExternalStorageState()\getRootDirectory()
+                if (pdfView.getText().equals(Environment.getExternalStorageState())) {
                     Toast.makeText(PDFtoTXTActivity.this, "已经是根目录",Toast.LENGTH_LONG).show();
             } else {
                     imageButton.setClickable(true);
@@ -95,7 +97,7 @@ public class PDFtoTXTActivity extends AppCompatActivity {
  //系统返回键添加监听事件
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (pdfView.getText().equals(Environment.getRootDirectory().toString())) {
+            if (pdfView.getText().equals(Environment.getExternalStorageState().toString())) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PDFtoTXTActivity.this);
                 builder.setMessage("确认退出吗?");
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -139,4 +141,24 @@ public class PDFtoTXTActivity extends AppCompatActivity {
             list.add(file[i].getAbsolutePath());
         }
     }
+    //读取pdf文件内容
+    private String readPdfToTxt(String pdfPath) {
+        PdfReader reader = null;
+        StringBuffer buff = new StringBuffer();
+        try {
+            reader = new PdfReader(pdfPath);
+            PdfReaderContentParser parser = new PdfReaderContentParser(reader);
+            int num = reader.getNumberOfPages();// 获得页数
+            TextExtractionStrategy strategy;
+            for (int i = 1; i <= num; i++) {
+            strategy = parser.processContent(i,new SimpleTextExtractionStrategy());
+            buff.append(strategy.getResultantText());
+                }
+            }
+        catch (IOException e) {
+            e.printStackTrace();
+            }
+        return buff.toString();
+    }
+
 }
