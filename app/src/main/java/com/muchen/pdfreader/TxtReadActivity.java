@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.muchen.pdfreader.utils.MyTTSUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,38 +17,22 @@ public class TxtReadActivity extends AppCompatActivity implements TextToSpeech.O
     private EditText et_text;
     private TextToSpeech tts;
     private Button btn;
+    MyTTSUtils mttsu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.txt_read);
+        mttsu=new MyTTSUtils();
+        tts = new TextToSpeech(this, this);
         et_text=(EditText) findViewById(R.id.ex_text);
         btn=(Button)findViewById(R.id.btn1);
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                play(et_text);
+                mttsu.play(et_text.getText().toString(),tts);
             }
         });
-        init();
     }
-    private void init() {
-        et_text = (EditText) findViewById(R.id.ex_text);
-        //创建tts对象
-        tts = new TextToSpeech(this, this);
-    }
-
-    public void play(View view){
-        String str = et_text.getText().toString().trim();
-        if (!TextUtils.isEmpty(str)){
-            // 设置音调，值越大声音越尖（女生），值越小则变成男声,1.0是常规
-            tts.setPitch(1.0f);
-            // 设置语速
-            tts.setSpeechRate(1.0f);
-            //播放语音
-            tts.speak(str, TextToSpeech.QUEUE_ADD, null,null);
-        }
-    }
-
     @Override
     public void onInit(int status) {
         //判断tts回调是否成功
