@@ -56,8 +56,11 @@ public class MyAdapter extends BaseAdapter{
             vh.imageView.setImageResource(R.drawable.folder);
             vh.tv_path.setText(file.getName());
         }else {
-            vh.imageView.setImageResource(R.drawable.file);
-            vh.tv_path.setText(file.getName());
+            if(file.getName().endsWith("pdf")){
+                vh.imageView.setImageResource(R.drawable.file);
+                vh.tv_path.setText(file.getName());
+            }
+
         }
         return convertView;
     }

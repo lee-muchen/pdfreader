@@ -10,7 +10,9 @@ import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
 import com.itextpdf.text.pdf.parser.TextExtractionStrategy;
 import com.muchen.pdfreader.adapter.MyAdapter;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.AlertDialog;
@@ -27,6 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class PDFtoTXTActivity extends AppCompatActivity {
     private ListView listView;
@@ -34,6 +38,7 @@ public class PDFtoTXTActivity extends AppCompatActivity {
 //    private ImageView imageView;
     private TextView textView;
     private TextView pdfView;
+    private File path;
     List<String> list;
     MyAdapter adapter;
     @Override
@@ -47,8 +52,15 @@ public class PDFtoTXTActivity extends AppCompatActivity {
         pdfView=(TextView) findViewById(R.id.pdf_path);//路径
         imageButton=(ImageButton) findViewById(R.id.pdf_turn);//返回上一级按钮
         list = new ArrayList<String>();
-        File path =new File(Environment.getExternalStorageState()) ;
-//        Log.e("cwj", "手机内存根目录路径  = " + path);
+//        if(getSDPath()!=null){
+//            path=new File(getSDPath());
+//        }
+//        else{
+//            path=new File(getBasePath());
+//        }
+        File path =Environment.getExternalStorageDirectory();
+//        File path=new File("/storage/emulated/0/Android");
+        Log.e("cwj", "手机内存根目录路径  = " + path);
         pdfView.setText(path.toString());
         getAllFile(path);
         adapter = new MyAdapter(PDFtoTXTActivity.this, list);
@@ -79,7 +91,7 @@ public class PDFtoTXTActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //getExternalStorageState()\getRootDirectory()
-                if (pdfView.getText().equals(Environment.getExternalStorageState())) {
+                if (pdfView.getText().equals(Environment.getExternalStorageDirectory().getAbsolutePath())) {
                     Toast.makeText(PDFtoTXTActivity.this, "已经是根目录",Toast.LENGTH_LONG).show();
             } else {
                     imageButton.setClickable(true);
@@ -94,46 +106,48 @@ public class PDFtoTXTActivity extends AppCompatActivity {
             }
         });
     }
- //系统返回键添加监听事件
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (pdfView.getText().equals(Environment.getExternalStorageState().toString())) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(PDFtoTXTActivity.this);
-                builder.setMessage("确认退出吗?");
-                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //点击确认后退出程序
-                        finish();
-                    }
-                });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            } else {
-                imageButton.setClickable(true);
-                String str = textView.getText().toString();
-                File file = new File(str);
-                File fileParentPath = file.getParentFile();
-                pdfView.setText(fileParentPath.toString());
-                getAllFile(fileParentPath);
-                adapter.setList(list);
-                listView.setAdapter(adapter);
-            }
-            return true;
-        }
-        return false;
-    }
+// //系统返回键添加监听事件
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            if (pdfView.getText().equals(Environment.getExternalStorageState().toString())) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(PDFtoTXTActivity.this);
+//                builder.setMessage("确认退出吗?");
+//                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        //点击确认后退出程序
+//                        finish();
+//                    }
+//                });
+//                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        }
+//                });
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
+//            } else {
+//                imageButton.setClickable(true);
+//                String str = textView.getText().toString();
+//                File file = new File(str);
+//                File fileParentPath = file.getParentFile();
+//                pdfView.setText(fileParentPath.toString());
+//                getAllFile(fileParentPath);
+//                adapter.setList(list);
+//                listView.setAdapter(adapter);
+//            }
+//            return true;
+//        }
+//        return false;
+//    }
 
  //遍历文件夹
     public void getAllFile(File dir) {
+        getPermission();
+        Log.e("cwj", "文件ming= " + dir);
         File[] file = dir.listFiles();
-        Log.e("cwj", "长度  = " + file.length);
-        if (file.length < 1) {
+        Log.e("cwj", "文件  = " + file);
+        if (file==null || file.length<1) {
             return;
         }
         list.clear();
@@ -160,5 +174,43 @@ public class PDFtoTXTActivity extends AppCompatActivity {
             }
         return buff.toString();
     }
-
+    //获取SD卡路径
+    public String getSDPath(){
+        String sdcard=Environment.getExternalStorageState();
+        if(sdcard.equals(Environment.MEDIA_MOUNTED)){
+            return Environment.getExternalStorageDirectory().getAbsolutePath();
+        }else{
+            return null;
+        }
+    }
+    //获取基本路径
+    public String getBasePath(){
+        String basePath=getSDPath();
+        if(basePath==null){
+            return Environment.getDataDirectory().getAbsolutePath();
+        }else{
+            return basePath;
+        }
+    }
+    void getPermission()
+    {
+        int permissionCheck1 = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionCheck2 = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheck1 != PackageManager.PERMISSION_GRANTED || permissionCheck2 != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                    124);
+        }
+    }
+@Override
+public void onRequestPermissionsResult(int requestCode,
+                                       String[] permissions,
+                                       int[] grantResults) {
+    if (requestCode == 124) {
+        if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED))
+        {
+            Log.d("heihei","获取到权限了！");
+//            path = new File(path.toString());//初始化File对象
+            File [] files = path.listFiles();//噩梦结束了吗？
+        }        else        {            Log.d("heihei","搞不定啊！");        }    }}
 }
