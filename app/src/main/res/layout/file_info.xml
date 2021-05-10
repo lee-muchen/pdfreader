@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    android:fadingEdge="vertical"
+    android:fillViewport="true"
+    android:background="@color/bg__white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:scrollbars="vertical">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,16 +30,15 @@
         android:layout_alignParentStart="true"
         android:id="@+id/view" />
     <TextView
-        android:layout_width="600px"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="New Text"
         android:id="@+id/pdf_file_info"
         android:textColor="#000"
-        android:textSize="50px"
-        android:maxLines="16"
         android:scrollbars="vertical"
         android:singleLine="false"
         android:layout_below="@+id/view"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp" />
-</RelativeLayout>
+    </LinearLayout>>
+</ScrollView>

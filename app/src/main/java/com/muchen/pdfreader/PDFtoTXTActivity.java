@@ -143,7 +143,7 @@ public class PDFtoTXTActivity extends AppCompatActivity {
 
  //遍历文件夹
     public void getAllFile(File dir) {
-        getPermission();
+//        getPermission();
         Log.e("cwj", "文件ming= " + dir);
         File[] file = dir.listFiles();
         Log.e("cwj", "文件  = " + file);
