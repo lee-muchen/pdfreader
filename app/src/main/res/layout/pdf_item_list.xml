@@ -9,7 +9,7 @@
         android:id="@+id/pdf_item_seq"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:gravity="center"
         android:padding="4dp"/>
 
@@ -23,7 +23,7 @@
         android:id="@+id/pdf_item_name"
         android:layout_width="0dp"
         android:layout_weight="9"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:padding="4dp"/>
 
 </LinearLayout>
