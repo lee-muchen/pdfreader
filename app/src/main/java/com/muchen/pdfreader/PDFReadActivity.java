@@ -2,7 +2,6 @@ package com.muchen.pdfreader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
@@ -15,10 +14,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -32,14 +28,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class PDFtoTXTActivity extends AppCompatActivity {
+public class PDFReadActivity extends AppCompatActivity {
     private ListView listView;
     private ImageButton imageButton;
 //    private ImageView imageView;
     private TextView textView;
     private TextView pdfView;
     private File path;
-    List<String> list;
+    ArrayList<String> list;
     MyAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +48,12 @@ public class PDFtoTXTActivity extends AppCompatActivity {
         pdfView=(TextView) findViewById(R.id.pdf_path);//路径
         imageButton=(ImageButton) findViewById(R.id.pdf_turn);//返回上一级按钮
         list = new ArrayList<String>();
-//        if(getSDPath()!=null){
-//            path=new File(getSDPath());
-//        }
-//        else{
-//            path=new File(getBasePath());
-//        }
         File path =Environment.getExternalStorageDirectory();
 //        File path=new File("/storage/emulated/0/Android");
         Log.e("cwj", "手机内存根目录路径  = " + path);
         pdfView.setText(path.toString());
         getAllFile(path);
-        adapter = new MyAdapter(PDFtoTXTActivity.this, list);
-
+        adapter = new MyAdapter(PDFReadActivity.this, list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -73,13 +62,14 @@ public class PDFtoTXTActivity extends AppCompatActivity {
                 String path = list.get(position);
                 pdfView.setText(path);
                 File file = new File(path);
+//                Log.e()
                 if(file.isDirectory()){//文件夹
                     getAllFile(file);
                     adapter.setList(list);
                     listView.setAdapter(adapter);
                 }else {
                     //读取pdf文件
-                    Intent inte = new Intent(PDFtoTXTActivity.this,FileInfoActivity.class);
+                    Intent inte = new Intent(PDFReadActivity.this,FileInfoActivity.class);
                     inte.putExtra("info",readPdfToTxt(file.getAbsolutePath()));
                     inte.putExtra("title",file.getName());
                     startActivity(inte);
@@ -92,7 +82,7 @@ public class PDFtoTXTActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //getExternalStorageState()\getRootDirectory()
                 if (pdfView.getText().equals(Environment.getExternalStorageDirectory().getAbsolutePath())) {
-                    Toast.makeText(PDFtoTXTActivity.this, "已经是根目录",Toast.LENGTH_LONG).show();
+                    Toast.makeText(PDFReadActivity.this, "已经是根目录",Toast.LENGTH_LONG).show();
             } else {
                     imageButton.setClickable(true);
                     String str = pdfView.getText().toString();
@@ -110,7 +100,7 @@ public class PDFtoTXTActivity extends AppCompatActivity {
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {
 //        if (keyCode == KeyEvent.KEYCODE_BACK) {
 //            if (pdfView.getText().equals(Environment.getExternalStorageState().toString())) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(PDFtoTXTActivity.this);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(PDFReadActivity.this);
 //                builder.setMessage("确认退出吗?");
 //                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
 //                    @Override

@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".TxtReadActivity"></activity>
-        <activity android:name=".PDFtoTXTActivity"></activity>
+        <activity android:name=".PDFReadActivity"></activity>
         <activity android:name=".FileInfoActivity"></activity>
+        <activity android:name=".PDFToTxtActivity"></activity>
             </application>
     </manifest>

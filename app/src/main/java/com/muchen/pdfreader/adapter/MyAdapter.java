@@ -6,6 +6,7 @@ import java.util.List;
 import com.muchen.pdfreader.R;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,12 +52,13 @@ public class MyAdapter extends BaseAdapter{
             vh = (ViewHolder) convertView.getTag();
         }
         String path = list.get(position);
+        Log.i("path=",path);
         File file = new File(path);
         if(file.isDirectory()){//文件夹
             vh.imageView.setImageResource(R.drawable.folder);
             vh.tv_path.setText(file.getName());
         }else {
-            if(file.getName().endsWith("pdf")){
+            if(file.getName().endsWith("pdf")||file.getName().endsWith("txt")){
                 vh.imageView.setImageResource(R.drawable.file);
                 vh.tv_path.setText(file.getName());
             }
