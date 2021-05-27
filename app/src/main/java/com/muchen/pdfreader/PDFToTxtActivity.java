@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -93,6 +94,16 @@ public class PDFToTxtActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    //    系统返回键添加监听事件
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent inte = new Intent(PDFToTxtActivity.this,MainActivity.class);
+            startActivity(inte);
+            finish();
+        } else {
+        }
+        return true;
     }
 
     //遍历文件夹

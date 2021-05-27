@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -95,6 +96,16 @@ public class PDFReadActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    //    系统返回键添加监听事件
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent inte = new Intent(PDFReadActivity.this,MainActivity.class);
+            startActivity(inte);
+            finish();
+        } else {
+        }
+        return true;
     }
 // //系统返回键添加监听事件
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {

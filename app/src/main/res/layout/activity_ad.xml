@@ -14,9 +14,8 @@
             android:id="@+id/ad_imageview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/adimage"
-            />
+            android:scaleType="fitXY"
+            android:src="@drawable/ad_new" />
     </LinearLayout>
 
     <TextView
@@ -25,8 +24,8 @@
         android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/clock_background"
         android:gravity="center"
         android:text="3s"

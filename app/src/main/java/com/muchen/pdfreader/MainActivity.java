@@ -2,8 +2,12 @@ package com.muchen.pdfreader;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -40,5 +44,29 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    //    系统返回键添加监听事件
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage("确认退出吗?");
+            builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //点击确认后退出程序
+                    finish();
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else {
+            }
+            return true;
     }
 }

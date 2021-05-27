@@ -1,9 +1,12 @@
 package com.muchen.pdfreader;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,6 +43,16 @@ public class FileInfoActivity extends AppCompatActivity implements TextToSpeech.
             public void onClick(View v) {
                 mttsu.play(msg,tts);
         }});
+    }
+    //    系统返回键添加监听事件
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent inte = new Intent(FileInfoActivity.this,PDFReadActivity.class);
+            startActivity(inte);
+            finish();
+        } else {
+        }
+        return true;
     }
     @Override
     public void onInit(int status) {

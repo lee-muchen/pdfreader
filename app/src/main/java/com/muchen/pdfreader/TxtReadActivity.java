@@ -1,8 +1,10 @@
 package com.muchen.pdfreader;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,6 +46,16 @@ public class TxtReadActivity extends AppCompatActivity implements TextToSpeech.O
                 Toast.makeText(this, "数据丢失或不支持", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    //    系统返回键添加监听事件
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent inte = new Intent(TxtReadActivity.this,MainActivity.class);
+            startActivity(inte);
+            finish();
+        } else {
+        }
+        return true;
     }
 
     @Override
