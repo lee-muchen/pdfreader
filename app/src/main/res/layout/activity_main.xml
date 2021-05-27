@@ -9,11 +9,12 @@
         android:id="@+id/txt_read"
         android:layout_width="192dp"
         android:layout_height="80dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="160dp"
         android:background="@drawable/main_btn"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/bg__white"
-        android:text="txtread"></Button>
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:text="文字朗读"></Button>
 
     <Button
         android:id="@+id/pdf_file"
@@ -23,7 +24,9 @@
         android:layout_below="@+id/txt_read"
         android:background="@drawable/main_btn"
         android:layout_centerHorizontal="true"
-        android:text="pdflist"></Button>
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:text="PDF文件朗读"></Button>
     <Button
         android:id="@+id/pdf_to_txt"
         android:layout_width="192dp"
@@ -31,8 +34,10 @@
         android:layout_marginTop="100dp"
         android:layout_below="@+id/pdf_file"
         android:background="@drawable/main_btn"
+        android:textColor="#000000"
+        android:textSize="20sp"
         android:layout_centerHorizontal="true"
-        android:text="pdfToTxt"></Button>
+        android:text="PDF格式转换"></Button>
 
 
 </RelativeLayout>
