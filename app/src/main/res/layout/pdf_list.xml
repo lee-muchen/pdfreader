@@ -11,7 +11,8 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical"
+        android:background="@drawable/al_back">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
@@ -24,7 +25,7 @@
             android:layout_weight="1"
             android:src="@drawable/turn"
             android:scaleType="fitCenter"
-            android:backgroundTint="@color/bg__white"
+            android:backgroundTint="#00000000"
             >
         </ImageButton>
         <TextView
@@ -32,6 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
+            android:textColor="#000000"
             android:layout_weight="9"></TextView>
     </LinearLayout>
 

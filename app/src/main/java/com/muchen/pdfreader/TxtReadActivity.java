@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import com.muchen.pdfreader.utils.MyTTSUtils;
 
@@ -18,7 +19,7 @@ import java.util.Locale;
 public class TxtReadActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
     private EditText et_text;
     private TextToSpeech tts;
-    private Button btn;
+    private ImageButton btn;
     MyTTSUtils mttsu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class TxtReadActivity extends AppCompatActivity implements TextToSpeech.O
         mttsu=new MyTTSUtils();
         tts = new TextToSpeech(this, this);
         et_text=(EditText) findViewById(R.id.ex_text);
-        btn=(Button)findViewById(R.id.btn1);
+        btn=(ImageButton)findViewById(R.id.btn1);
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

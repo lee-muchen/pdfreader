@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">pdfReader</string>
+    <string name="app_name">PDF朗读器</string>
     <string name="author">muchen</string>
     <string name="school">成都理工大学</string>
 </resources>
